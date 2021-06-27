@@ -1,0 +1,108 @@
+{
+  "name": "babel-webpack",
+  "version": "1.0.0",
+  "description": "webpack",
+  "main": "dist/main/main.js",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.less",
+    "**/*.scss"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "rimraf dist",
+    "start": "concurrently -n=render,main -c=green,blue \"npm run start:dev\" \"npm run start:ele\"",
+    "start:dev": "ts-node webpack.dev.js",
+    "start:ele": "ts-node script/electron.dev --watch",
+    "build:dev": "ts-node webpack.build.js",
+    "prebuild": "rimraf dist",
+    "build": "ts-node webpack.build.js && ts-node script/electron.dev && electron-builder",
+    "debug:ele": "electron --inspect=5858 ."
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "build": {
+    "appId": "2067380264@qq.com",
+    "productName": "electron-template",
+    "copyright": "Copyright @ 2021 ${author}",
+    "asar": false,
+    "directories": {
+      "output": "release/babel-webpack"
+    },
+    "files": [
+      "!node_modules",
+      "dist/**"
+    ],
+    "extraResources": {
+      "from": "src/preload",
+      "to": "app/src/preload"
+    },
+    "mac": {
+      "artifactName": "${productName}-V-${version}.${ext}",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}-V-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "author": "crf 2067380264@qq.com",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@reduxjs/toolkit": "^1.6.0",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@swc/core": "^1.2.61",
+    "@types/minimist": "^1.2.1",
+    "@types/react": "^17.0.11",
+    "@types/react-dom": "^17.0.8",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/wait-on": "^5.3.0",
+    "@types/webpack-dev-server": "^3.11.4",
+    "babel-loader": "^8.2.2",
+    "concurrently": "^6.2.0",
+    "css-loader": "^5.2.6",
+    "dotenv": "^10.0.0",
+    "electron": "^13.1.4",
+    "electron-builder": "^22.11.7",
+    "html-webpack-plugin": "^5.3.2",
+    "minimist": "^1.2.5",
+    "ora": "^5.4.1",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.1.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.52.3",
+    "style-loader": "^3.0.0",
+    "ts-loader": "^9.2.3",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.4",
+    "wait-on": "^5.3.0",
+    "webpack": "^5.40.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
