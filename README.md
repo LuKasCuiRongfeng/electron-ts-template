@@ -11,7 +11,7 @@ npm install
 `npm run build`
 > 将根据使用的操作系统打包到release文件夹下
 # introduce
-这是一个结合结合
+结合了
 + [electron](https://www.electronjs.org/ "electron")
 + [typescript](https://www.typescriptlang.org/ "typescript") + [webpack](https://webpack.js.org/ "webpack")
 + [rollup](https://rollupjs.org/ "rollup")
