@@ -7,6 +7,9 @@ npm install
 ```
 # 启动
 `npm start`
+# debug main process
+`npm run debug`
+> 注意：该脚本还不完善，每次调试前，先把当前的electron先杀掉，否则看不到控制台信息
 # 构建
 `npm run build`
 > 将根据使用的操作系统打包到release文件夹下
