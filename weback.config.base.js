@@ -9,7 +9,7 @@ export const webpackBaseConfig = {
         clean: true,
         pathinfo: false
     },
-    target: ["electron-renderer"],
+    target: ["web", "electron-renderer"],
     module: {
         rules: [
             {
