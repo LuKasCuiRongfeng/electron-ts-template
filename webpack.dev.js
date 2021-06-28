@@ -9,14 +9,11 @@ const serverOptions = {
     contentBase: "./dist",
     hot: true,
     host: "localhost",
+    open: true,
     stats: {
         preset: "summary",
         builtAt: true,
-        colors: true,
-        timings: true,
-        env: true,
-        errors: true,
-        entryPoints: true
+        colors: true
     }
 }
 
@@ -27,6 +24,5 @@ const server = new WebpackDevServer(complier, serverOptions)
 
 server.listen(process.env.PORT, "localhost", err => {
     if (err) throw err
-    console.log(`[${new Date()}]! listening on the port of ${process.env.PORT}`)
+    console.log(`[${new Date()}]. DevServer listening on the port of ${process.env.PORT}`)
 })
-
