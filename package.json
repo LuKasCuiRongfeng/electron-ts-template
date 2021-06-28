@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prestart": "rimraf dist",
     "start": "concurrently -n=render,main -c=green,blue \"npm run start:dev\" \"npm run start:ele\"",
     "start:dev": "ts-node webpack.dev.js",
     "start:ele": "ts-node script/electron.dev --watch",
