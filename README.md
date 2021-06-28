@@ -1,5 +1,5 @@
 # electron-ts-template
-electron + typescript一套完整的解决方案
+从0开始搭建，electron + typescript + webpack一套完整的解决方案
 # git clone 
 ```
 git clone git@github.com:LuKasCuiRongfeng/electron-ts-template.git
@@ -10,6 +10,7 @@ npm install
 # 构建
 `npm run build`
 > 将根据使用的操作系统打包到release文件夹下
+**********
 # introduce
 结合了
 + [electron](https://www.electronjs.org/ "electron")
@@ -18,5 +19,5 @@ npm install
 的一套完整的构建桌面端流程的模板，这里使用的是[react](https://reactjs.org/ "react")，
 但实际上你可以很方便的嵌入任何当前流行的前端框架
 ********
-# 鼓励一下
-如果觉得还过得去，就点个star吧
+# 点个赞？
+手滑给个star？
