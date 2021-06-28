@@ -11,53 +11,59 @@ import rollupOptions from './rollup.config'
 config()
 
 const argv = minimist(process.argv.slice(2))
-const spinner = ora("start building")
+const spinner = ora()
 const watcher = watch(rollupOptions)
-
+console.log("**********************")
+console.log(chalk.green("wait for rendering to complete"))
 if (argv.watch) {
     waiton({
         resources: [`tcp:${process.env.PORT}`]
     }).then(() => {
+        console.log("**********************")
+        spinner.start(chalk.green(`ready to compile electron from typescript to javascript`))
         let child: ChildProcess
         watcher.on("change", filename => {
-            console.log("**********************\n")
-            console.log(chalk.green(`--- ${filename} ---changed\n`))
-            console.log("**********************\n")
+            console.log("**********************")
+            console.log(chalk.green(`${filename} has been changed`))
         })
         watcher.on("event", e => {
             if (e.code === "END") {
-                console.log("**********************\n")
-                console.log(chalk.green(`build end\n`))
-                console.log("**********************\n")
+                console.log("**********************")
+                console.log(chalk.green(`successfully build electron from typescript to javascript
+                \npath: ${join(__dirname, "../dist/main/main.js")}`))
                 if (child) child.kill()
-                console.log("**********************\n")
-                console.log(chalk.green(`electron is going to starting\n`))
-                console.log("**********************\n")
-                child = exec("electron .", (err) => {
+                console.log("**********************")
+                console.log(chalk.green(`ready to start electron...`))
+                child = exec("electron .", (err, stdout) => {
                     if (err) {
-                        console.log(err.message)
+                        console.log("**********************")
+                        console.log(chalk.red(err.message))
+                        process.exit(1)
                     }
                 })
             } else if (e.code === "ERROR") {
+                console.log("**********************")
                 console.log(chalk.red(`${e.error}`))
             }
         })
     })
 } else {
-    console.log("**********************\n")
-    spinner.start("start build")
-    console.log("**********************\n")
+    console.log("**********************")
+    spinner.start(chalk.green(`ready to compile electron from typescript to javascript`))
     rollup(rollupOptions).then(build => {
         spinner.stop()
-        console.log("**********************\n")
-        console.log(chalk.green(`successfully build to ${join(__dirname, "../dist/main/main.js")}`))
-        console.log("**********************\n")
+        console.log("**********************")
+        console.log(chalk.green(`successfully build electron from typescript to javascript
+        \npath: ${join(__dirname, "../dist/main/main.js")}`))
+        console.log("**********************")
         build.write(rollupOptions.output as OutputOptions).then(() => {
             // 必须主动调用，不然没法进入打包
             process.exit(0)
         })
     }).catch(err => {
         spinner.stop()
-        console.log(chalk.red(`failed ---${err}`))
+        console.log("**********************")
+        console.log(chalk.red(`failed to complie: ${err}`))
+        process.exit(1)
     })
 }
