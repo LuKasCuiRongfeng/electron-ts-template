@@ -9,7 +9,7 @@ const serverOptions = {
     contentBase: "./dist",
     hot: true,
     host: "localhost",
-    open: true,
+    open: false,
     stats: {
         preset: "summary",
         builtAt: true,
