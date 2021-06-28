@@ -1,7 +1,7 @@
 import { BrowserWindow, BrowserWindowConstructorOptions, app, remote } from 'electron'
 import { join } from 'path'
 import { config } from 'dotenv'
-import { SEND_MSG } from '../consts/ipc'
+import { SEND_MSG, Opts } from '../consts/ipc'
 
 config()
 global.win = {}
@@ -21,11 +21,6 @@ const defaultWinOptions: BrowserWindowConstructorOptions = {
     }
 }
 
-interface Opts {
-    data?: { type: string, payload: any },
-    winOpts?: BrowserWindowConstructorOptions,
-    beforeClosed?: (remote: Electron.Remote) => void
-}
 function createWin(key: string, opts?: Opts) {
     const { data, winOpts = defaultWinOptions, beforeClosed } = (opts || {})
     let win = global.win[key]
@@ -67,6 +62,5 @@ function sendMsg(key: string, data: any) {
 
 export {
     createWin,
-    sendMsg,
-    Opts
+    sendMsg
 }

@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron'
 import { SEND_MSG, CREATE_WIN } from '../consts/ipc'
-import { Opts } from '../main/utils'
+import { Opts } from '../consts/ipc'
 
 
 function sendMsg(key: string, data: { type: string, payload: any }) {
