@@ -13,15 +13,15 @@ config()
 const argv = minimist(process.argv.slice(2))
 const spinner = ora()
 const watcher = watch(rollupOptions)
+let child: ChildProcess | null = null
 console.log("**********************")
 console.log(chalk.green("wait for rendering to complete"))
-if (argv.watch) {
+if (argv.watch || argv.debug) {
     waiton({
         resources: [`tcp:${process.env.PORT}`]
     }).then(() => {
         console.log("**********************")
         spinner.start(chalk.green(`ready to compile electron from typescript to javascript`))
-        let child: ChildProcess
         watcher.on("change", filename => {
             console.log("**********************")
             console.log(chalk.green(`${filename} has been changed`))
@@ -30,11 +30,18 @@ if (argv.watch) {
             if (e.code === "END") {
                 console.log("**********************")
                 console.log(chalk.green(`successfully build electron from typescript to javascript
-                \npath: ${join(__dirname, "../dist/main/main.js")}`))
+                path: ${join(__dirname, "../dist/main/main.js")}`))
                 if (child) child.kill()
                 console.log("**********************")
                 console.log(chalk.green(`ready to start electron...`))
-                child = exec("electron .", (err, stdout) => {
+                let command = ""
+                if (argv.debug) {
+                    command = "electron --inspect=5858 ."
+                    console.log(chalk.green(`打开 chrome://inspect 可调试主进程`))
+                } else {
+                    command = "electron ."
+                }
+                child = exec(command, (err, stdout) => {
                     if (err) {
                         console.log("**********************")
                         console.log(chalk.red(err.message))

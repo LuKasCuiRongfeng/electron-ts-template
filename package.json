@@ -16,7 +16,8 @@
     "build:dev": "ts-node webpack.build.js",
     "prebuild": "rimraf dist",
     "build": "ts-node webpack.build.js && ts-node script/electron.dev && electron-builder",
-    "debug:ele": "electron --inspect=5858 ."
+    "debug:ele": "ts-node script/electron.dev --debug",
+    "debug": "concurrently -n=render,main -c=green,blue \"npm run start:dev\" \"npm run debug:ele\""
   },
   "keywords": [
     "webpack"
