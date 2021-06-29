@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { createWin } from '../../utils'
+import { createWin, sendMsg } from '../../ipc/utils'
 import './index.css'
 
 function Main() {
@@ -14,18 +14,33 @@ function Main() {
         })
     }
     const openWin = () => {
-        createWin("about", {
+        createWin({
             data: {
                 type: "about/increment",
                 payload: "hello world"
+            },
+            createWinOpts: {
+                key: "about",
+                openDevTools: true,
+                browserWindowConstructorOptions: {
+                    title: "about"
+                }
             }
+        })
+    }
+
+    const changeAbout = () => {
+        sendMsg("about", {
+            type: "about/increment",
+            payload: "add about"
         })
     }
     return (
         <div>
             <h1 className="h1">{app.value}</h1>
-            <button onClick={add}>addddd</button>
+            <button onClick={add}>dd</button>
             <button onClick={openWin}>open new win</button>
+            <button onClick={changeAbout}>change about</button>
         </div>
     )
 }

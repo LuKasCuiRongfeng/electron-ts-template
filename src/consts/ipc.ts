@@ -1,16 +1,7 @@
-import { BrowserWindowConstructorOptions } from 'electron'
+import { Rectangle } from 'electron'
 
-const SEND_MSG = "SEND_MSG"
-const CREATE_WIN = "CREATE_WIN"
+export const SEND_MSG = "SEND_MSG"
+export const CREATE_WIN = "CREATE_WIN"
+export const CREATE_VIEW = "CREATE_VIEW"
 
-interface Opts {
-    data?: { type: string, payload: any },
-    winOpts?: BrowserWindowConstructorOptions,
-    beforeClosed?: (remote: Electron.Remote) => void
-}
-
-export {
-    SEND_MSG,
-    CREATE_WIN,
-    Opts
-}
+export type ElectronRectangle = Rectangle
